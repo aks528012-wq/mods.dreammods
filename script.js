@@ -56,6 +56,8 @@ function initSearch() {
 }
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7840465639151341"
      crossorigin="anonymous"></script>
+
+    
 // ===== FAQ ACCORDION =====
 function initFAQ() {
     const faqItems = document.querySelectorAll('.faq-item');
@@ -68,7 +70,18 @@ function initFAQ() {
         });
     });
 }
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7840465639151341"
+     crossorigin="anonymous"></script>
+<!-- top -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-7840465639151341"
+     data-ad-slot="4257316493"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 // ===== ANIMATE ON SCROLL =====
 function initAnimations() {
     const observer = new IntersectionObserver((entries) => {
