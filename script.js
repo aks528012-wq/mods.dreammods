@@ -54,7 +54,8 @@ function initSearch() {
         });
     });
 }
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7840465639151341"
+     crossorigin="anonymous"></script>
 // ===== FAQ ACCORDION =====
 function initFAQ() {
     const faqItems = document.querySelectorAll('.faq-item');
