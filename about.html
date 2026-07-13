@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Aadil Mods</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-brand">
+                <div class="logo-icon"><span class="material-icons">games</span></div>
+                Aadil Mods
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="index.html"><span class="material-icons">home</span> Home</a></li>
+                <li><a href="hillclimbracing.html"><span class="material-icons">sports_esports</span> Hill Climb Racing</a></li>
+                <li><a href="plans.html"><span class="material-icons">workspace_premium</span> VIP Plans</a></li>
+                <li><a href="help.html"><span class="material-icons">help_outline</span> Help</a></li>
+                <li><a href="about.html" class="active"><span class="material-icons">info</span> About</a></li>
+                <li><a href="contact.html"><span class="material-icons">mail</span> Contact</a></li>
+                <li><a href="sign.html"><span class="material-icons">person</span> Account</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <div class="theme-toggle-label">
+                    <span class="material-icons" id="themeIcon">light_mode</span>
+                    <span id="themeLabel">Light Mode</span>
+                </div>
+                <div class="toggle-switch"></div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="menu-btn" onclick="toggleSidebar()"><span class="material-icons">menu</span></button>
+                <h1 class="page-title">About Us</h1>
+            </div>
+            <div class="search-bar">
+                <span class="material-icons">search</span>
+                <input type="text" placeholder="Search..." id="searchInput">
+            </div>
+        </header>
+
+        <main class="page-content">
+            <section class="about-section">
+                <h2><span class="material-icons">info</span> About This Page</h2>
+                <div class="about-card">
+                    <p>Welcome to the official website of <strong>Aadil Mods</strong>, your trusted source for free and safe modded Android games.</p>
+                    <p>Here, you will find the latest modded games and updates, all created and tested for people who enjoy modding. Our aim is to make modding simple and fun.</p>
+                    <p>Every mod shared on this platform is <strong>completely free, safe, and thoroughly tested</strong> before release. We prioritize your device's security above everything else so you'll never find malware or harmful scripts in our files.</p>
+                    <p>In addition to mods, this website also offers guides and tutorials about Android modding, game development, and reverse engineering. These are perfect for those who want to learn how mods are made.</p>
+                </div>
+            </section>
+
+            <section class="about-section">
+                <h2><span class="material-icons">download</span> How Downloads Work</h2>
+                <div class="about-card">
+                    <p>Downloading mods from this site is <strong>completely free</strong>, but you'll need to go through link shorteners and watch ads to access your downloads. This helps us maintain our servers and continue developing new mods for the community.</p>
+                    <p>We also provide a subscription service for those who want a smoother experience with one-click downloads and instant key access. If you prefer an ad-free, hassle-free experience, you can check our <a href="plans.html">subscription plans</a>.</p>
+                </div>
+            </section>
+
+            <section class="about-section">
+                <div class="vip-card">
+                    <h2><span class="material-icons">workspace_premium</span> Upgrade to VIP Subscription</h2>
+                    <p>Experience premium features and skip all the waiting</p>
+                    <div class="vip-features">
+                        <div class="vip-feature"><span class="material-icons">check_circle</span> Instant, direct downloads</div>
+                        <div class="vip-feature"><span class="material-icons">check_circle</span> No ads or shorteners</div>
+                        <div class="vip-feature"><span class="material-icons">check_circle</span> Maximum download speed</div>
+                        <div class="vip-feature"><span class="material-icons">check_circle</span> Instant key access</div>
+                        <div class="vip-feature"><span class="material-icons">check_circle</span> Early access to updates</div>
+                        <div class="vip-feature"><span class="material-icons">check_circle</span> Priority support</div>
+                    </div>
+                    <a href="plans.html" class="btn-vip"><span class="material-icons">workspace_premium</span> View Plans</a>
+                </div>
+            </section>
+
+            <section class="about-section">
+                <div class="thank-you-card">
+                    <span class="material-icons">favorite</span>
+                    <h2>Thank You for Your Support!</h2>
+                    <p>We're grateful to have you as part of the Aadil Mods community. Whether you're here to download mods, learn modding, or simply explore, your support helps us continue creating amazing content for mod enthusiasts and developers worldwide. If you ever face a problem or have questions, you can contact us anytime through the <a href="contact.html">Contact Us</a> page.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:14px;"><span class="material-icons" style="font-size:16px">games</span></div>
+                    Aadil Mods
+                </div>
+                <ul class="footer-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="help.html">Help</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <p class="footer-copy">&copy; 2026 Aadil Mods. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

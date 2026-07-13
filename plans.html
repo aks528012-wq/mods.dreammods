@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP Plans - Aadil Mods</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .plans-hero { text-align: center; padding: 20px 0 32px; }
+        .plans-hero h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+        .plans-hero p { color: var(--text-secondary); font-size: 1rem; }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .plan-card {
+            background-color: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+        .plan-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .plan-card.selected { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
+        .plan-card.popular::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--accent), #7c3aed);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 16px;
+            border-radius: 0 0 var(--radius-xs) var(--radius-xs);
+        }
+        .plan-duration { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+        .plan-price { font-size: 2rem; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
+        .plan-price span { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
+        .plan-save { color: #22c55e; font-size: 0.8rem; font-weight: 600; margin-bottom: 12px; }
+        .plan-features { text-align: left; list-style: none; margin-bottom: 16px; }
+        .plan-features li { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 0.85rem; color: var(--text-secondary); }
+        .plan-features li .material-icons { font-size: 16px; color: #22c55e; }
+        .btn-select-plan {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xs);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+        .plan-card.selected .btn-select-plan,
+        .btn-select-plan:hover {
+            background-color: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 32px;
+            display: none;
+        }
+        .payment-section.active { display: block; }
+        .payment-section h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .payment-section h2 .material-icons { color: var(--accent); }
+
+        .payment-methods { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+        .payment-method {
+            flex: 1;
+            min-width: 140px;
+            padding: 16px;
+            background-color: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .payment-method:hover { border-color: var(--accent); }
+        .payment-method.selected { border-color: var(--accent); background-color: var(--accent-light); }
+        .payment-method .material-icons { font-size: 32px; color: var(--accent); margin-bottom: 8px; }
+        .payment-method h4 { font-size: 0.95rem; font-weight: 600; }
+        .payment-method p { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* UPI Payment */
+        .upi-details { display: none; }
+        .upi-details.active { display: block; }
+        .upi-qr {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .upi-qr img { width: 200px; height: 200px; border-radius: var(--radius-xs); }
+        .upi-id-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xs);
+            padding: 12px 16px;
+            margin-bottom: 16px;
+        }
+        .upi-id-box code { flex: 1; font-family: 'Courier New', monospace; font-size: 1rem; color: var(--text-primary); }
+        .upi-id-box button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: var(--radius-xs);
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Redeem Code */
+        .redeem-details { display: none; }
+        .redeem-details.active { display: block; }
+
+        /* Request Method */
+        .request-details { display: none; }
+        .request-details.active { display: block; }
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+            transition: var(--transition);
+        }
+        .contact-method:hover { border-color: var(--accent); }
+        .contact-method .material-icons { font-size: 28px; color: var(--accent); }
+        .contact-method h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
+        .contact-method p { font-size: 0.85rem; color: var(--text-secondary); }
+        .contact-method a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+        .order-summary {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .order-summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+        .order-summary-row.total {
+            border-top: 1px solid var(--border);
+            margin-top: 8px;
+            padding-top: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .btn-pay {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--accent), #7c3aed);
+            color: white;
+            border: none;
+            border-radius: var(--radius-xs);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: inherit;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-pay:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,0.4); }
+        .btn-pay:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    </style>
+</head>
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-brand">
+                <div class="logo-icon"><span class="material-icons">games</span></div>
+                dream Mods
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="index.html"><span class="material-icons">home</span> Home</a></li>
+                <li><a href="plans.html" class="active"><span class="material-icons">workspace_premium</span> VIP Plans</a></li>
+                <li><a href="help.html"><span class="material-icons">help_outline</span> Help</a></li>
+                <li><a href="about.html"><span class="material-icons">info</span> About</a></li>
+                <li><a href="contact.html"><span class="material-icons">mail</span> Contact</a></li>
+                <li><a href="sign.html"><span class="material-icons">person</span> Account</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <div class="theme-toggle-label">
+                    <span class="material-icons" id="themeIcon">light_mode</span>
+                    <span id="themeLabel">Light Mode</span>
+                </div>
+                <div class="toggle-switch"></div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="menu-btn" onclick="toggleSidebar()"><span class="material-icons">menu</span></button>
+                <h1 class="page-title">VIP Plans</h1>
+            </div>
+        </header>
+
+        <main class="page-content">
+            <section class="plans-hero">
+                <h1>Choose Your VIP Plan</h1>
+                <p>Unlock instant downloads, no ads, and premium features</p>
+            </section>
+
+            <!-- Plans Grid -->
+            <div class="plans-grid" id="plansGrid">
+                <div class="plan-card" data-plan="1month" data-price="2" onclick="selectPlan(this)">
+                    <div class="plan-duration">1 Month</div>
+                    <div class="plan-price">$2<span>/mo</span></div>
+                    <div class="plan-save">&nbsp;</div>
+                    <ul class="plan-features">
+                        <li><span class="material-icons">check_circle</span> Instant downloads</li>
+                        <li><span class="material-icons">check_circle</span> No ads</li>
+                        <li><span class="material-icons">check_circle</span> All mod access</li>
+                    </ul>
+                    <button class="btn-select-plan">Select</button>
+                </div>
+
+                <div class="plan-card" data-plan="2month" data-price="4" onclick="selectPlan(this)">
+                    <div class="plan-duration">2 Months</div>
+                    <div class="plan-price">$4<span>total</span></div>
+                    <div class="plan-save">&nbsp;</div>
+                    <ul class="plan-features">
+                        <li><span class="material-icons">check_circle</span> Instant downloads</li>
+                        <li><span class="material-icons">check_circle</span> No ads</li>
+                        <li><span class="material-icons">check_circle</span> All mod access</li>
+                    </ul>
+                    <button class="btn-select-plan">Select</button>
+                </div>
+
+                <div class="plan-card popular" data-plan="3month" data-price="5" onclick="selectPlan(this)">
+                    <div class="plan-duration">3 Months</div>
+                    <div class="plan-price">$5<span>total</span></div>
+                    <div class="plan-save">Save $1</div>
+                    <ul class="plan-features">
+                        <li><span class="material-icons">check_circle</span> Instant downloads</li>
+                        <li><span class="material-icons">check_circle</span> No ads</li>
+                        <li><span class="material-icons">check_circle</span> All mod access</li>
+                        <li><span class="material-icons">check_circle</span> Priority support</li>
+                    </ul>
+                    <button class="btn-select-plan">Select</button>
+                </div>
+
+                <div class="plan-card" data-plan="6month" data-price="9" onclick="selectPlan(this)">
+                    <div class="plan-duration">6 Months</div>
+                    <div class="plan-price">$9<span>total</span></div>
+                    <div class="plan-save">Save $3</div>
+                    <ul class="plan-features">
+                        <li><span class="material-icons">check_circle</span> Instant downloads</li>
+                        <li><span class="material-icons">check_circle</span> No ads</li>
+                        <li><span class="material-icons">check_circle</span> All mod access</li>
+                        <li><span class="material-icons">check_circle</span> Priority support</li>
+                    </ul>
+                    <button class="btn-select-plan">Select</button>
+                </div>
+
+                <div class="plan-card" data-plan="1year" data-price="10" onclick="selectPlan(this)">
+                    <div class="plan-duration">1 Year</div>
+                    <div class="plan-price">$10<span>total</span></div>
+                    <div class="plan-save">Save $14</div>
+                    <ul class="plan-features">
+                        <li><span class="material-icons">check_circle</span> Instant downloads</li>
+                        <li><span class="material-icons">check_circle</span> No ads</li>
+                        <li><span class="material-icons">check_circle</span> All mod access</li>
+                        <li><span class="material-icons">check_circle</span> Priority support</li>
+                        <li><span class="material-icons">check_circle</span> Early updates</li>
+                    </ul>
+                    <button class="btn-select-plan">Select</button>
+                </div>
+
+                <div class="plan-card" data-plan="2year" data-price="18" onclick="selectPlan(this)">
+                    <div class="plan-duration">2 Years</div>
+                    <div class="plan-price">$18<span>total</span></div>
+                    <div class="plan-save">Save $30</div>
+                    <ul class="plan-features">
+                        <li><span class="material-icons">check_circle</span> Instant downloads</li>
+                        <li><span class="material-icons">check_circle</span> No ads</li>
+                        <li><span class="material-icons">check_circle</span> All mod access</li>
+                        <li><span class="material-icons">check_circle</span> Priority support</li>
+                        <li><span class="material-icons">check_circle</span> Early updates</li>
+                    </ul>
+                    <button class="btn-select-plan">Select</button>
+                </div>
+
+                <div class="plan-card" data-plan="3year" data-price="25" onclick="selectPlan(this)">
+                    <div class="plan-duration">3 Years</div>
+                    <div class="plan-price">$25<span>total</span></div>
+                    <div class="plan-save">Save $47</div>
+                    <ul class="plan-features">
+                        <li><span class="material-icons">check_circle</span> Instant downloads</li>
+                        <li><span class="material-icons">check_circle</span> No ads</li>
+                        <li><span class="material-icons">check_circle</span> All mod access</li>
+                        <li><span class="material-icons">check_circle</span> Priority support</li>
+                        <li><span class="material-icons">check_circle</span> Early updates</li>
+                        <li><span class="material-icons">check_circle</span> Lifetime perks</li>
+                    </ul>
+                    <button class="btn-select-plan">Select</button>
+                </div>
+            </div>
+
+            <!-- Payment Section -->
+            <div class="payment-section" id="paymentSection">
+                <h2><span class="material-icons">payment</span> Complete Your Purchase</h2>
+
+                <div class="order-summary">
+                    <div class="order-summary-row">
+                        <span>Plan</span>
+                        <span id="summaryPlan">-</span>
+                    </div>
+                    <div class="order-summary-row">
+                        <span>Duration</span>
+                        <span id="summaryDuration">-</span>
+                    </div>
+                    <div class="order-summary-row total">
+                        <span>Total</span>
+                        <span id="summaryTotal">$0</span>
+                    </div>
+                </div>
+
+                <h3 style="font-size:1rem;font-weight:600;margin-bottom:16px;">Select Payment Method</h3>
+                <div class="payment-methods">
+                    <div class="payment-method" data-method="upi" onclick="selectPayment(this)">
+                        <span class="material-icons">qr_code</span>
+                        <h4>UPI Payment</h4>
+                        <p>Scan & Pay</p>
+                    </div>
+                    <div class="payment-method" data-method="redeem" onclick="selectPayment(this)">
+                        <span class="material-icons">redeem</span>
+                        <h4>Redeem Code</h4>
+                        <p>Enter code</p>
+                    </div>
+                    <div class="payment-method" data-method="request" onclick="selectPayment(this)">
+                        <span class="material-icons">send</span>
+                        <h4>Send Request</h4>
+                        <p>Email / Telegram</p>
+                    </div>
+                </div>
+
+                <!-- UPI Details -->
+                <div class="upi-details" id="upiDetails">
+                    <h3 style="font-size:1rem;font-weight:600;margin-bottom:16px;">Pay via UPI</h3>
+                    <div class="upi-qr">
+                        <img src="https://dreamstore-mods.netlify.app/Qr-code.png://pay?pa=dreammods145@okaxis&pn=AadilMods&am=0" alt="UPI QR Code" id="upiQr">
+                        <p style="color:var(--text-muted);font-size:0.85rem;margin-top:12px;">Scan with any UPI app (GPay, PhonePe, Paytm)</p>
+                    </div>
+                    <div class="upi-id-box">
+                        <code id="upiId">dreammods145@okaxis</code>
+                        <button onclick="copyUpi()">Copy</button>
+                    </div>
+                    <div class="form-group">
+                        
+                        <label>Transaction ID / UTR (after payment)</label>
+                        <input type="text" id="upiTransactionId" placeholder="Enter your UPI transaction ID">
+                    </div>
+                    <button class="btn-pay" onclick="submitUpiPayment()">
+                        <span class="material-icons">check_circle</span> I've Paid - Verify
+                    </button>
+                </div>
+
+                <!-- Redeem Code Details -->
+                <div class="redeem-details" id="redeemDetails">
+                    <h3 style="font-size:1rem;font-weight:600;margin-bottom:16px;">Redeem Gift Code</h3>
+                    <div class="form-group">
+                        <label>Enter your redeem code</label>
+                        <input type="text" id="redeemCode" placeholder="XXXX-XXXX-XXXX" style="text-transform:uppercase;">
+                    </div>
+                    <button class="btn-pay" onclick="submitRedeemCode()">
+                        <span class="material-icons">redeem</span> Redeem Code
+                    </button>
+                </div>
+
+                <!-- Request Details -->
+                <div class="request-details" id="requestDetails">
+                    <h3 style="font-size:1rem;font-weight:600;margin-bottom:16px;">Send Purchase Request</h3>
+                    <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:16px;">Send us your request via one of the following methods. We'll activate your VIP after verification.</p>
+
+                    <div class="contact-method">
+                        <span class="material-icons">email</span>
+                        <div>
+                            <h4>Email</h4>
+                            <p><a href="mailto:dreammods145@gmail.com">dreammods145@gmail.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-method">
+                        <span class="material-icons">send</span>
+                        <div>
+                            <h4>Telegram</h4>
+                            <p><a href="https://t.me/Customplayer99" target="_blank">t.me/Customplayer99</a></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Email / Telegram Username</label>
+                        <input type="text" id="requestContact" placeholder="Enter your contact info">
+                    </div>
+                    <div class="form-group">
+                        <label>Selected Plan</label>
+                        <input type="text" id="requestPlan" readonly style="background-color:var(--bg-hover);">
+                    </div>
+                    <button class="btn-pay" onclick="submitRequest()">
+                        <span class="material-icons">send</span> Send Request
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:14px;"><span class="material-icons" style="font-size:16px">games</span></div>
+                    Aadil Mods
+                </div>
+                <ul class="footer-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="help.html">Help</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <p class="footer-copy">&copy; 2026 dream Mods. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let selectedPlan = null;
+        let selectedPrice = 0;
+        let selectedDuration = '';
+
+        const planNames = {
+            '1month': '1 Month', '2month': '2 Months', '3month': '3 Months',
+            '6month': '6 Months', '1year': '1 Year', '2year': '2 Years', '3year': '3 Years'
+        };
+
+        function selectPlan(card) {
+            document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedPlan = card.dataset.plan;
+            selectedPrice = card.dataset.price;
+            selectedDuration = planNames[selectedPlan];
+
+            document.getElementById('paymentSection').classList.add('active');
+            document.getElementById('summaryPlan').textContent = selectedDuration;
+            document.getElementById('summaryDuration').textContent = selectedDuration;
+            document.getElementById('summaryTotal').textContent = '$' + selectedPrice;
+            document.getElementById('requestPlan').value = selectedDuration + ' - $' + selectedPrice;
+
+            // Update QR code with amount
+            document.getElementById('upiQr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=dreammods145@okaxis&pn=AadilMods&am=' + selectedPrice;
+
+            // Scroll to payment
+            document.getElementById('paymentSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function selectPayment(method) {
+            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+            method.classList.add('selected');
+            const methodType = method.dataset.method;
+
+            document.getElementById('upiDetails').classList.toggle('active', methodType === 'upi');
+            document.getElementById('redeemDetails').classList.toggle('active', methodType === 'redeem');
+            document.getElementById('requestDetails').classList.toggle('active', methodType === 'request');
+        }
+
+        function copyUpi() {
+            const upiId = document.getElementById('upiId').textContent;
+            navigator.clipboard.writeText(upiId).then(() => {
+                alert('UPI ID copied: ' + upiId);
+            });
+        }
+
+        function submitUpiPayment() {
+            const txnId = document.getElementById('upiTransactionId').value.trim();
+            if (!txnId) { alert('Please enter your transaction ID'); return; }
+            alert('Payment verification request submitted! We will activate your VIP within 1-2 hours.\n\nTransaction ID: ' + txnId);
+        }
+
+        function submitRedeemCode() {
+            const code = document.getElementById('redeemCode').value.trim();
+            if (!code) { alert('Please enter a redeem code'); return; }
+            alert('Redeem code submitted: ' + code + '\nWe will verify and activate your VIP shortly.');
+        }
+
+        function submitRequest() {
+            const contact = document.getElementById('requestContact').value.trim();
+            if (!contact) { alert('Please enter your contact info'); return; }
+            alert('Purchase request sent!\n\nPlan: ' + selectedDuration + '\nContact: ' + contact + '\n\nWe will contact you shortly to complete the payment.');
+        }
+    </script>
+</body>
+</html>

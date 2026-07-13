@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dream Mods - Free Mods & Tutorials</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-brand">
+                <div class="logo-icon"><span class="material-icons">games</span></div>
+                Dream  Mods
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="index.html" class="active"><span class="material-icons">home</span> Home</li>
+                <li><a href="plans.html"><span class="material-icons">workspace_premium</span> VIP Plans</a></li>
+                <li><a href="help.html"><span class="material-icons">help_outline</span> Help</a></li>
+                <li><a href="about.html"><span class="material-icons">info</span> About</a></li>
+                <li><a href="contact.html"><span class="material-icons">mail</span> Contact</a></li>
+                <li><a href="sign.html"><span class="material-icons">person</span> Account</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <div class="theme-toggle-label">
+                    <span class="material-icons" id="themeIcon">light_mode</span>
+                    <span id="themeLabel">Light Mode</span>
+                </div>
+                <div class="toggle-switch"></div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="menu-btn" onclick="toggleSidebar()"><span class="material-icons">menu</span></button>
+                <h1 class="page-title">Home</h1>
+            </div>
+            <div class="search-bar">
+                <span class="material-icons">search</span>
+                <input type="text" placeholder="Search mods, tutorials..." id="searchInput">
+            </div>
+        </header>
+
+        <main class="page-content">
+            <section class="hero">
+                <h1>Dream Mods</h1>
+                <p>Welcome to our site, where you'll find virus free, working game mods and tutorials!</p>
+            </section>
+
+            <h2 class="section-title"><span class="material-icons">whatshot</span> Latest Mods</h2>
+            <div class="app-cards-grid">
+                <div class="app-card" data-search="Subway Surf">
+                    <div class="app-card-header">
+                        <img src="subway-surfers-logo.webp" alt="Subway Surf" class="app-icon" onerror="this.src='https://via.placeholder.com/64/2563eb/ffffff?text=H'">
+                        <div class="app-info">
+                            <h3>Subway Surfers Mod</h3>
+                            <div class="app-meta"><span>v1.70.0</span><span>206.57 MB</span></div>
+                        </div>
+                    </div>
+                    <div class="app-card-date"><span class="material-icons">schedule</span> Jun 27, 2026</div>
+                    <p class="app-card-desc">Unlimited everything , Stop camera, Stop trains, Jetpack unlimited time , God mode , Unlimited Coins, Gems, and everything else.</p>
+                    <a href="SubwaySurf.html" class="btn-read-more">Read More <span class="material-icons">arrow_forward</span></a>
+               
+                    <div>
+
+                    </div>
+                    
+                    </div>
+                    <div class="app-card-date"><span
+
+           
+            <div class="cta-section">
+                <a href="plans.html" class="btn-cta"><span class="material-icons">workspace_premium</span> Get VIP Access</a>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:14px;"><span class="material-icons" style="font-size:16px">games</span></div>
+                    Dream Mods
+                </div>
+                <ul class="footer-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="help.html">Help</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <p class="footer-copy">&copy; 2026 dream Mods. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

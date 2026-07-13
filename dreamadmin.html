@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - dream Mods</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .admin-login {
+            max-width: 400px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+        .admin-login-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 36px;
+            box-shadow: var(--shadow-lg);
+        }
+        .admin-login-card h2 {
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 1.4rem;
+        }
+        .admin-login-card .logo-icon {
+            width: 56px; height: 56px;
+            margin: 0 auto 16px;
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+        }
+
+        .admin-panel { display: none; }
+        .admin-panel.active { display: block; }
+
+        .admin-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .admin-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .admin-header h2 .material-icons { color: var(--accent); }
+
+        .admin-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-xs);
+            padding: 4px;
+            overflow-x: auto;
+        }
+        .admin-tab {
+            padding: 10px 18px;
+            border-radius: var(--radius-xs);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border: none;
+            background: none;
+            font-family: inherit;
+            transition: var(--transition);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .admin-tab.active {
+            background-color: var(--accent);
+            color: white;
+        }
+        .admin-tab .badge {
+            background: var(--danger, #ef4444);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .admin-section { display: none; }
+        .admin-section.active { display: block; }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .stat-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-card .material-icons {
+            font-size: 32px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .stat-card .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        .stat-card .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Data Table */
+        .data-table-container {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .data-table thead {
+            background-color: var(--bg-secondary);
+        }
+        .data-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+        }
+        .data-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table tr:hover td { background-color: var(--bg-hover); }
+
+        .user-name { font-weight: 600; color: var(--text-primary); }
+        .user-email { font-size: 0.85rem; color: var(--text-muted); }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .status-vip {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+        .status-free {
+            background-color: var(--bg-hover);
+            color: var(--text-muted);
+        }
+
+        .btn-action {
+            padding: 6px 14px;
+            border-radius: var(--radius-xs);
+            border: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-give-vip {
+            background-color: var(--success, #22c55e);
+            color: white;
+        }
+        .btn-give-vip:hover { background-color: #16a34a; }
+        .btn-revoke-vip {
+            background-color: var(--danger, #ef4444);
+            color: white;
+        }
+        .btn-revoke-vip:hover { background-color: #dc2626; }
+        .btn-view {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+        .btn-view:hover { background-color: var(--bg-hover); }
+
+        .search-box-admin {
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xs);
+            padding: 8px 14px;
+            width: 280px;
+        }
+        .search-box-admin input {
+            background: none; border: none; color: var(--text-primary);
+            font-size: 0.9rem; width: 100%; outline: none; font-family: inherit;
+        }
+        .search-box-admin .material-icons { color: var(--text-muted); font-size: 18px; margin-right: 8px; }
+
+        /* VIP Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: var(--shadow-lg);
+        }
+        .modal h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal h3 .material-icons { color: var(--accent); }
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .modal-actions button { flex: 1; }
+        .btn-cancel {
+            padding: 12px;
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xs);
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .btn-confirm {
+            padding: 12px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius-xs);
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* Message card */
+        .message-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin-bottom: 12px;
+            transition: var(--transition);
+        }
+        .message-card:hover { border-color: var(--border-hover); }
+        .message-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .message-sender {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .message-sender .avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #7c3aed);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 700; font-size: 0.85rem;
+        }
+        .message-sender h4 { font-size: 0.95rem; font-weight: 600; }
+        .message-sender p { font-size: 0.8rem; color: var(--text-muted); }
+        .message-date { font-size: 0.8rem; color: var(--text-muted); }
+        .message-subject {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background-color: var(--accent-light);
+            color: var(--accent);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .message-body {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .message-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--text-muted);
+        }
+        .empty-state .material-icons { font-size: 48px; margin-bottom: 12px; }
+        .empty-state p { font-size: 0.95rem; }
+
+        @media (max-width: 768px) {
+            .data-table { font-size: 0.8rem; }
+            .data-table th, .data-table td { padding: 10px 8px; }
+            .search-box-admin { width: 100%; }
+            .admin-header { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-brand">
+                <div class="logo-icon" style="background:linear-gradient(135deg,#ef4444,#b91c1c);"><span class="material-icons">admin_panel_settings</span></div>
+                Admin Panel
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="index.html"><span class="material-icons">home</span> Back to Site</a></li>
+                <li><a href="admin.html" class="active"><span class="material-icons">dashboard</span> Dashboard</a></li>
+                <li><a href="sign.html"><span class="material-icons">person</span> Account</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <div class="theme-toggle-label">
+                    <span class="material-icons" id="themeIcon">light_mode</span>
+                    <span id="themeLabel">Light Mode</span>
+                </div>
+                <div class="toggle-switch"></div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="menu-btn" onclick="toggleSidebar()"><span class="material-icons">menu</span></button>
+                <h1 class="page-title">Admin Dashboard</h1>
+            </div>
+            <button class="btn-action btn-revoke-vip" onclick="handleSignOut()" id="adminLogoutBtn" style="display:none;">
+                <span class="material-icons">logout</span> Logout
+            </button>
+        </header>
+
+        <main class="page-content">
+            <!-- Admin Login -->
+            <div class="admin-login" id="adminLogin">
+                <div class="admin-login-card">
+                    <div class="logo-icon" style="border-radius:var(--radius-xs);display:flex;align-items:center;justify-content:center;color:white;font-size:28px;margin:0 auto 16px;">
+                        <span class="material-icons">admin_panel_settings</span>
+                    </div>
+                    <h2>Admin Login</h2>
+                    <form onsubmit="handleAdminLogin(event)">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="adminEmail" placeholder="admin@aadilmods.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="adminPassword" placeholder="Enter password" required>
+                        </div>
+                        <p class="error-msg" id="adminError" style="margin-bottom:12px;"></p>
+                        <button type="submit" class="btn-auth" style="width:100%;padding:14px;background:linear-gradient(135deg,#ef4444,#b91c1c);color:white;border:none;border-radius:var(--radius-xs);font-weight:700;font-size:1rem;cursor:pointer;font-family:inherit;">
+                            <span class="material-icons">login</span> Login
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Admin Panel -->
+            <div class="admin-panel" id="adminPanel">
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="material-icons">people</span>
+                        <div class="stat-value" id="statTotalUsers">0</div>
+                        <div class="stat-label">Total Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="material-icons">workspace_premium</span>
+                        <div class="stat-value" id="statVipUsers">0</div>
+                        <div class="stat-label">VIP Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="material-icons">mail</span>
+                        <div class="stat-value" id="statMessages">0</div>
+                        <div class="stat-label">Messages</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="material-icons">download</span>
+                        <div class="stat-value" id="statDownloads">0</div>
+                        <div class="stat-label">Downloads</div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="admin-tabs">
+                    <button class="admin-tab active" onclick="switchAdminTab('users')">
+                        <span class="material-icons">people</span> Users
+                    </button>
+                    <button class="admin-tab" onclick="switchAdminTab('messages')">
+                        <span class="material-icons">mail</span> Messages <span class="badge" id="msgBadge">0</span>
+                    </button>
+                    <button class="admin-tab" onclick="switchAdminTab('payments')">
+                        <span class="material-icons">payment</span> Payments
+                    </button>
+                </div>
+
+                <!-- Users Section -->
+                <div class="admin-section active" id="usersSection">
+                    <div class="admin-header">
+                        <h2><span class="material-icons">people</span> All Users</h2>
+                        <div class="search-box-admin">
+                            <span class="material-icons">search</span>
+                            <input type="text" placeholder="Search users..." id="userSearch" oninput="filterUsers()">
+                        </div>
+                    </div>
+                    <div class="data-table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>VIP Expiry</th>
+                                    <th>Joined</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <tr><td colspan="6"><div class="empty-state"><span class="material-icons">hourglass_empty</span><p>Loading users...</p></div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Messages Section -->
+                <div class="admin-section" id="messagesSection">
+                    <div class="admin-header">
+                        <h2><span class="material-icons">mail</span> Contact Messages</h2>
+                        <div class="search-box-admin">
+                            <span class="material-icons">search</span>
+                            <input type="text" placeholder="Search messages..." id="msgSearch" oninput="filterMessages()">
+                        </div>
+                    </div>
+                    <div id="messagesList">
+                        <div class="empty-state"><span class="material-icons">mail_outline</span><p>Loading messages...</p></div>
+                    </div>
+                </div>
+
+                <!-- Payments Section -->
+                <div class="admin-section" id="paymentsSection">
+                    <div class="admin-header">
+                        <h2><span class="material-icons">payment</span> Payment Requests</h2>
+                    </div>
+                    <div class="data-table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Plan</th>
+                                    <th>Amount</th>
+                                    <th>Method</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="paymentsTableBody">
+                                <tr><td colspan="7"><div class="empty-state"><span class="material-icons">payment</span><p>No payment requests yet</p></div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- VIP Modal -->
+    <div class="modal-overlay" id="vipModal">
+        <div class="modal">
+            <h3><span class="material-icons">workspace_premium</span> Give VIP Access</h3>
+            <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:16px;">Select VIP duration for <strong id="vipUserName">User</strong></p>
+            <div class="form-group">
+                <label>VIP Duration</label>
+                <select id="vipDuration" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius-xs);background-color:var(--bg-secondary);color:var(--text-primary);font-family:inherit;font-size:0.95rem;outline:none;">
+                    <option value="1">1 Month</option>
+                    <option value="2">2 Months</option>
+                    <option value="3" selected>3 Months</option>
+                    <option value="6">6 Months</option>
+                    <option value="12">1 Year</option>
+                    <option value="24">2 Years</option>
+                    <option value="36">3 Years</option>
+                    <option value="9999">Lifetime</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeVipModal()">Cancel</button>
+                <button class="btn-confirm" onclick="confirmGiveVip()">Give VIP</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getDatabase, ref, set, get, child, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCqQoTs9zkFuHxQ9PCJyp5PzRlLe4Nf5Ks",
+            authDomain: "mods-store-dream.firebaseapp.com",
+            databaseURL: "https://mods-store-dream-default-rtdb.firebaseio.com",
+            projectId: "mods-store-dream",
+            storageBucket: "mods-store-dream.firebasestorage.app",
+            messagingSenderId: "112654567418",
+            appId: "1:112654567418:web:c59d08329945a608cb0643"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        window.auth = auth;
+        window.db = db;
+        window.ref = ref;
+        window.set = set;
+        window.get = get;
+        window.child = child;
+        window.onValue = onValue;
+        window.remove = remove;
+        window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+        window.signOut = signOut;
+
+        let currentAdmin = null;
+        let selectedUserId = null;
+        let allUsers = [];
+        let allMessages = [];
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentAdmin = user;
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminPanel').classList.add('active');
+                document.getElementById('adminLogoutBtn').style.display = 'flex';
+                loadUsers();
+                loadMessages();
+                loadPayments();
+            } else {
+                document.getElementById('adminLogin').style.display = 'block';
+                document.getElementById('adminPanel').classList.remove('active');
+                document.getElementById('adminLogoutBtn').style.display = 'none';
+            }
+        });
+
+        window.loadUsers = function() {
+            onValue(ref(db, 'users'), (snapshot) => {
+                const data = snapshot.val() || {};
+                allUsers = Object.entries(data).map(([uid, u]) => ({ uid, ...u }));
+                renderUsers(allUsers);
+                updateStats();
+            });
+        };
+
+        window.renderUsers = function(users) {
+            const tbody = document.getElementById('usersTableBody');
+            if (users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><span class="material-icons">people_outline</span><p>No users found</p></div></td></tr>';
+                return;
+            }
+            tbody.innerHTML = users.map(u => {
+                const isVip = u.vip === true;
+                const expiry = u.vipExpiry ? new Date(u.vipExpiry) : null;
+                const now = new Date();
+                const activeVip = isVip && expiry && expiry > now;
+                const joined = u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '-';
+                const expiryStr = expiry ? expiry.toLocaleDateString() : '-';
+                return `<tr>
+                    <td><div class="user-name">${u.name || 'Unknown'}</div></td>
+                    <td><div class="user-email">${u.email || '-'}</div></td>
+                    <td><span class="status-badge ${activeVip ? 'status-vip' : 'status-free'}"><span class="material-icons" style="font-size:12px">${activeVip ? 'workspace_premium' : 'lock'}</span>${activeVip ? 'VIP' : 'Free'}</span></td>
+                    <td>${expiryStr}</td>
+                    <td>${joined}</td>
+                    <td>
+                        ${activeVip 
+                            ? `<button class="btn-action btn-revoke-vip" onclick="revokeVip('${u.uid}', '${u.name || 'User'}')"><span class="material-icons" style="font-size:14px">remove_circle</span> Revoke</button>`
+                            : `<button class="btn-action btn-give-vip" onclick="openVipModal('${u.uid}', '${u.name || 'User'}')"><span class="material-icons" style="font-size:14px">add_circle</span> Give VIP</button>`
+                        }
+                    </td>
+                </tr>`;
+            }).join('');
+        };
+
+        window.loadMessages = function() {
+            onValue(ref(db, 'contacts'), (snapshot) => {
+                const data = snapshot.val() || {};
+                allMessages = Object.entries(data).map(([id, m]) => ({ id, ...m })).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                renderMessages(allMessages);
+                document.getElementById('msgBadge').textContent = allMessages.length;
+                updateStats();
+            });
+        };
+
+        window.renderMessages = function(msgs) {
+            const container = document.getElementById('messagesList');
+            if (msgs.length === 0) {
+                container.innerHTML = '<div class="empty-state"><span class="material-icons">mail_outline</span><p>No messages yet</p></div>';
+                return;
+            }
+            container.innerHTML = msgs.map(m => {
+                const date = m.timestamp ? new Date(m.timestamp).toLocaleString() : '-';
+                const initial = (m.name || 'U')[0].toUpperCase();
+                return `<div class="message-card">
+                    <div class="message-header">
+                        <div class="message-sender">
+                            <div class="avatar">${initial}</div>
+                            <div>
+                                <h4>${m.name || 'Unknown'}</h4>
+                                <p>${m.email || '-'}</p>
+                            </div>
+                        </div>
+                        <span class="message-date">${date}</span>
+                    </div>
+                    <span class="message-subject">${m.subject || 'General'}</span>
+                    <p class="message-body">${m.message || '-'}</p>
+                    <div class="message-actions">
+                        <a href="mailto:${m.email}" class="btn-action btn-view"><span class="material-icons" style="font-size:14px">reply</span> Reply</a>
+                        <button class="btn-action btn-revoke-vip" onclick="deleteMessage('${m.id}')"><span class="material-icons" style="font-size:14px">delete</span> Delete</button>
+                    </div>
+                </div>`;
+            }).join('');
+        };
+
+        window.loadPayments = function() {
+            onValue(ref(db, 'payments'), (snapshot) => {
+                const data = snapshot.val() || {};
+                const payments = Object.entries(data).map(([id, p]) => ({ id, ...p }));
+                const tbody = document.getElementById('paymentsTableBody');
+                if (payments.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><span class="material-icons">payment</span><p>No payment requests yet</p></div></td></tr>';
+                    return;
+                }
+                tbody.innerHTML = payments.map(p => {
+                    const date = p.timestamp ? new Date(p.timestamp).toLocaleString() : '-';
+                    return `<tr>
+                        <td><div class="user-name">${p.userName || 'Unknown'}</div><div class="user-email">${p.userEmail || '-'}</div></td>
+                        <td>${p.plan || '-'}</td>
+                        <td><strong>$${p.amount || '0'}</strong></td>
+                        <td>${p.method || '-'}</td>
+                        <td><span class="status-badge ${p.status === 'completed' ? 'status-vip' : 'status-free'}">${p.status || 'pending'}</span></td>
+                        <td>${date}</td>
+                        <td>
+                            ${p.status !== 'completed' ? `<button class="btn-action btn-give-vip" onclick="approvePayment('${p.id}', '${p.userId || ''}')"><span class="material-icons" style="font-size:14px">check_circle</span> Approve</button>` : '<span style="color:var(--text-muted);font-size:0.8rem;">Done</span>'}
+                        </td>
+                    </tr>`;
+                }).join('');
+            });
+        };
+
+        window.updateStats = function() {
+            document.getElementById('statTotalUsers').textContent = allUsers.length;
+            const now = new Date();
+            const vipCount = allUsers.filter(u => u.vip === true && u.vipExpiry && new Date(u.vipExpiry) > now).length;
+            document.getElementById('statVipUsers').textContent = vipCount;
+            document.getElementById('statMessages').textContent = allMessages.length;
+        };
+
+        window.filterUsers = function() {
+            const query = document.getElementById('userSearch').value.toLowerCase();
+            const filtered = allUsers.filter(u => 
+                (u.name || '').toLowerCase().includes(query) || 
+                (u.email || '').toLowerCase().includes(query)
+            );
+            renderUsers(filtered);
+        };
+
+        window.filterMessages = function() {
+            const query = document.getElementById('msgSearch').value.toLowerCase();
+            const filtered = allMessages.filter(m => 
+                (m.name || '').toLowerCase().includes(query) || 
+                (m.email || '').toLowerCase().includes(query) ||
+                (m.message || '').toLowerCase().includes(query)
+            );
+            renderMessages(filtered);
+        };
+
+        window.openVipModal = function(uid, name) {
+            selectedUserId = uid;
+            document.getElementById('vipUserName').textContent = name;
+            document.getElementById('vipModal').classList.add('active');
+        };
+
+        window.closeVipModal = function() {
+            document.getElementById('vipModal').classList.remove('active');
+            selectedUserId = null;
+        };
+
+        window.confirmGiveVip = async function() {
+            if (!selectedUserId) return;
+            const months = parseInt(document.getElementById('vipDuration').value);
+            const expiry = new Date();
+            if (months === 9999) {
+                expiry.setFullYear(expiry.getFullYear() + 100);
+            } else {
+                expiry.setMonth(expiry.getMonth() + months);
+            }
+            await set(ref(db, 'users/' + selectedUserId + '/vip'), true);
+            await set(ref(db, 'users/' + selectedUserId + '/vipExpiry'), expiry.toISOString());
+            await set(ref(db, 'users/' + selectedUserId + '/vipGivenAt'), new Date().toISOString());
+            await set(ref(db, 'users/' + selectedUserId + '/vipDuration'), months);
+            alert('VIP access granted successfully!');
+            closeVipModal();
+        };
+
+        window.revokeVip = async function(uid, name) {
+            if (!confirm('Revoke VIP from ' + name + '?')) return;
+            await set(ref(db, 'users/' + uid + '/vip'), false);
+            await set(ref(db, 'users/' + uid + '/vipExpiry'), null);
+            alert('VIP access revoked.');
+        };
+
+        window.deleteMessage = async function(id) {
+            if (!confirm('Delete this message?')) return;
+            await remove(ref(db, 'contacts/' + id));
+        };
+
+        window.approvePayment = async function(paymentId, userId) {
+            if (!userId) { alert('No user ID associated'); return; }
+            const months = 3;
+            const expiry = new Date();
+            expiry.setMonth(expiry.getMonth() + months);
+            await set(ref(db, 'users/' + userId + '/vip'), true);
+            await set(ref(db, 'users/' + userId + '/vipExpiry'), expiry.toISOString());
+            await set(ref(db, 'payments/' + paymentId + '/status'), 'completed');
+            alert('Payment approved and VIP activated!');
+        };
+
+        window.handleAdminLogin = async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (err) {
+                document.getElementById('adminError').textContent = err.message;
+                document.getElementById('adminError').style.display = 'block';
+            }
+        };
+
+        window.handleSignOut = async function() {
+            await signOut(auth);
+        };
+
+        window.switchAdminTab = function(tab) {
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tab + 'Section').classList.add('active');
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

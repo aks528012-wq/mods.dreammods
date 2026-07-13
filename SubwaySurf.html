@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subway Surf Mod Apk - Dream Mods</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .vip-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 14px 32px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(245,158,11,0.3);
+        }
+        .vip-download-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245,158,11,0.4); }
+
+        .free-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--accent);
+            color: white;
+            padding: 14px 32px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(37,99,235,0.3);
+        }
+        .free-download-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,0.4); }
+
+        .upgrade-prompt {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 24px;
+            text-align: center;
+            margin-top: 16px;
+        }
+        .upgrade-prompt h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .upgrade-prompt p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .user-vip-banner {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .user-vip-banner.active { display: flex; }
+        .user-vip-banner .material-icons { font-size: 20px; }
+
+        .download-note {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .download-note .material-icons { font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-brand">
+                <div class="logo-icon"><span class="material-icons">games</span></div>
+                dream Mods
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="index.html"><span class="material-icons">home</span> Home</a></li>
+                <li><a href="plans.html"><span class="material-icons">workspace_premium</span> VIP Plans</a></li>
+                <li><a href="help.html"><span class="material-icons">help_outline</span> Help</a></li>
+                <li><a href="about.html"><span class="material-icons">info</span> About</a></li>
+                <li><a href="contact.html"><span class="material-icons">mail</span> Contact</a></li>
+                <li><a href="sign.html"><span class="material-icons">person</span> Account</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <div class="theme-toggle-label">
+                    <span class="material-icons" id="themeIcon">light_mode</span>
+                    <span id="themeLabel">Light Mode</span>
+                </div>
+                <div class="toggle-switch"></div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="menu-btn" onclick="toggleSidebar()"><span class="material-icons">menu</span></button>
+                <h1 class="page-title">Subway Surf </h1>
+            </div>
+            <div class="search-bar">
+                <span class="material-icons">search</span>
+                <input type="text" placeholder="Search..." id="searchInput">
+            </div>
+        </header>
+
+        <main class="page-content">
+            <!-- VIP Banner (shown only for VIP users) -->
+            <div class="user-vip-banner" id="vipBanner">
+                <span class="material-icons">workspace_premium</span>
+                VIP Active - You have full access to all downloads
+            </div>
+
+            <!-- App Header -->
+            <div class="app-detail-header">
+                <img src="subway-surfers-logo.webp" alt="Hill Climb Racing" class="app-detail-icon" onerror="this.src='https://via.placeholder.com/80/2563eb/ffffff?text=H'">
+                <div class="app-detail-title">
+                    <h1>Subway Surfers Mod</h1>
+                    <div class="app-detail-meta">
+                        <span><span class="material-icons">sports_esports</span> Sybo games</span>
+                        <span><span class="material-icons">update</span> v3.65.1</span>
+                        <span><span class="material-icons">save</span> 206.57 MB</span>
+                        <span><span class="material-icons">memory</span> ARM64</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Download Section -->
+            <section class="info-section" id="downloadSection">
+                <h2><span class="material-icons">download</span> Download</h2>
+                <div class="info-card" id="downloadCard">
+
+                    <!-- Free User View -->
+                    <div id="freeDownloadView">
+                        <p style="color:var(--text-secondary);font-size:0.95rem;line-height:1.7;margin-bottom:16px;">
+                            Free download available with ads and link shorteners. Complete the steps to get your download.
+                        </p>
+                        <a href="https://linksgo.in/SubwaySurfMod" target="_blank" class="free-download-btn">
+                            <span class="material-icons">download</span> Free Download (With Ads)
+                        </a>
+                        <p class="download-note">
+                            <span class="material-icons">info</span> You will be redirected to a link shortener. Complete the steps to unlock the download.
+                        </p>
+                        <div class="upgrade-prompt">
+                            <h3><span class="material-icons">workspace_premium</span> Want Instant Download?</h3>
+                            <p>Skip all ads and get instant direct access with a VIP subscription. No waiting, no shorteners.</p>
+                            <a href="plans.html" class="vip-download-btn">
+                                <span class="material-icons">workspace_premium</span> Upgrade to VIP
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- VIP User View -->
+                    <div id="vipDownloadView" style="display:none;">
+                        <p style="color:var(--text-secondary);font-size:0.95rem;line-height:1.7;margin-bottom:16px;">
+                            Welcome VIP member! Your direct download link is ready. No ads, no waiting.
+                        </p>
+                        <a href="https://www.mediafire.com/file/4ek0p7rwnjckjgw/Subway_Surf_3.65.0_Mod.apk/file" target="_blank" class="vip-download-btn">
+                            <span class="material-icons">download</span> VIP Instant Download
+                        </a>
+                        <p class="download-note">
+                            <span class="material-icons">speed</span> Direct MediaFire link | Max speed | No ads
+                        </p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- App Information -->
+            <section class="info-section">
+                <h2><span class="material-icons">info</span> App Information</h2>
+                <div class="info-card">
+                    <table class="info-table">
+                        <tr><td>Name</td><td>Subway Surf</td></tr>
+                        <tr><td>Version</td><td>v3.65.1</td></tr>
+                        <tr><td>Size</td><td>155.57 MB</td></tr>
+                        <tr><td>Package</td><td>com.kiloo.subwaysurf</td></tr>
+                        <tr><td>Publisher</td><td>Sybo games </td></tr>
+                        <tr><td>Architecture</td><td>ARM64</td></tr>
+                    </table>
+                </div>
+            </section>
+
+           
+
+            <!-- Mod Features -->
+            <section class="info-section">
+                <h2><span class="material-icons">stars</span> Mod Features</h2>
+                <div class="features-grid">
+                    <div class="feature-category">
+                        <h3>Shop Mods</h3>
+                        <ul>
+                            <li>Free Shoping </li>
+                            <li>Unlimited Everything</li>
+                            <li>Add Coins custom Value</li>
+                            <li>Add keys custom Value </li>
+                            <li>Auto Review </li>
+                          
+                        </ul>
+                    </div>
+                    <div class="feature-category">
+                        <h3>Player  Mods</h3>
+                        <ul>
+                            <li>No Gravity </li>
+                            <li>Score Multiplayer custom value add</li>
+                            <li>God Mode</li>
+                            <li>Wall Hack</li>
+                            <li>Jump limit 1-99</li>
+                          
+                        </ul>
+                    </div>
+                 <div class="feature-category">
+                        <h3>Camera Menu </h3>
+                        <ul>
+                            <li>Stop Camera </li>
+                            <li>follow camera </li>
+                          
+                          
+                        </ul>
+                    </div>
+                    <div class="feature-category">
+                        <h3>Settings</h3>
+                        <ul>
+                            <li>Save Features Preferences</li>
+                            <li>Change Icon Transparency/Opacity</li>
+                            <li>Change Icon Size</li>
+                            <li>Hide Menu Icon</li>
+                            <li>Share Menu Button</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Screenshots -->
+            <section class="info-section">
+                <h2><span class="material-icons">photo_library</span> Screenshots</h2>
+                <p class="screenshot-note">The screenshots depict the mod in an earlier version, but the mod you're downloading is the latest.</p>
+                <div class="screenshots-grid">
+                    <div class="screenshot-card">
+                        <img src="https://i.imgur.com/placeholder1.jpg" alt="Shopping Mods" onerror="this.src='https://via.placeholder.com/400x225/1e1b4b/ffffff?text=Shopping+Mods'">
+                    </div>
+                    <div class="screenshot-card">
+                        <img src="https://i.imgur.com/placeholder2.jpg" alt="Vehicle Mods" onerror="this.src='https://via.placeholder.com/400x225/1e1b4b/ffffff?text=Vehicle+Mods'">
+                    </div>
+                    <div class="screenshot-card">
+                        <img src="https://i.imgur.com/placeholder3.jpg" alt="Teleport & Fly" onerror="this.src='https://via.placeholder.com/400x225/1e1b4b/ffffff?text=Teleport+%26+Fly'">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Connect -->
+           
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:14px;"><span class="material-icons" style="font-size:16px">games</span></div>
+                    Dream Mods
+                </div>
+                <ul class="footer-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="help.html">Help</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <p class="footer-copy">&copy; 2026 Dream Mods. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCqQoTs9zkFuHxQ9PCJyp5PzRlLe4Nf5Ks",
+            authDomain: "mods-store-dream.firebaseapp.com",
+            databaseURL: "https://mods-store-dream-default-rtdb.firebaseio.com",
+            projectId: "mods-store-dream",
+            storageBucket: "mods-store-dream.firebasestorage.app",
+            messagingSenderId: "112654567418",
+            appId: "1:112654567418:web:c59d08329945a608cb0643"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const snapshot = await get(child(ref(db), 'users/' + user.uid));
+                const userData = snapshot.val() || {};
+                const isVip = userData.vip === true;
+                const expiry = userData.vipExpiry ? new Date(userData.vipExpiry) : null;
+                const now = new Date();
+                const activeVip = isVip && expiry && expiry > now;
+
+                if (activeVip) {
+                    document.getElementById('vipBanner').classList.add('active');
+                    document.getElementById('freeDownloadView').style.display = 'none';
+                    document.getElementById('vipDownloadView').style.display = 'block';
+                }
+            }
+            // If not logged in or not VIP, free download view stays visible by default
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

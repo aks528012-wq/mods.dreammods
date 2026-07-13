@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support -  drfeam Mods</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-brand">
+                <div class="logo-icon"><span class="material-icons">games</span></div>
+                Dream Mods
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="index.html"><span class="material-icons">home</span> Home</a></li>
+                <li><a href="plans.html"><span class="material-icons">workspace_premium</span> VIP Plans</a></li>
+                <li><a href="help.html" class="active"><span class="material-icons">help_outline</span> Help</a></li>
+                <li><a href="about.html"><span class="material-icons">info</span> About</a></li>
+                <li><a href="contact.html"><span class="material-icons">mail</span> Contact</a></li>
+                <li><a href="sign.html"><span class="material-icons">person</span> Account</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <div class="theme-toggle-label">
+                    <span class="material-icons" id="themeIcon">light_mode</span>
+                    <span id="themeLabel">Light Mode</span>
+                </div>
+                <div class="toggle-switch"></div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="menu-btn" onclick="toggleSidebar()"><span class="material-icons">menu</span></button>
+                <h1 class="page-title">Help & Support</h1>
+            </div>
+            <div class="search-bar">
+                <span class="material-icons">search</span>
+                <input type="text" placeholder="Search FAQs..." id="searchInput">
+            </div>
+        </header>
+
+        <main class="page-content">
+            <section class="hero" style="padding:20px 0 28px;">
+                <h1>Frequently Asked Questions</h1>
+                <p>Find answers to common questions about our mods, downloads, and services.</p>
+            </section>
+
+            <div class="faq-list">
+                <div class="faq-item" data-search="what is aadil mods official website download modded games tutorials">
+                    <div class="faq-question">What is dream Mods? <span class="material-icons">expand_more</span></div>
+                    <div class="faq-answer"><p>This is the official website of <strong dream  Mods</strong>. Here you can download modded games and learn how to make mods through step-by-step tutorials made by dream.</p></div>
+                </div>
+                <div class="faq-item" data-search="safe malware virus free tested secure">
+                    <div class="faq-question">Are the mods safe to download? <span class="material-icons">expand_more</span></div>
+                    <div class="faq-answer"><p>Yes, it's completely safe. All our mods are tested and 100% malware-free before being shared.</p></div>
+                </div>
+                <div class="faq-item" data-search="how to download mods among us page button">
+                    <div class="faq-question">How do I download mods? <span class="material-icons">expand_more</span></div>
+                    <div class="faq-answer"><p>Each mod has its own page with a download button. For example, you can visit the <a href="hillclimbracing.html">Hill Climb Racing mod page</a> to download it.</p></div>
+                </div>
+                <div class="faq-item" data-search="why ads link shorteners revenue free users direct download">
+                    <div class="faq-question">Why are there ads and link shorteners? <span class="material-icons">expand_more</span></div>
+                    <div class="faq-answer">
+                        <p>Ads help us earn revenue to keep providing free mods. Because of this, we can't offer direct download links for free users.</p>
+                        <p style="margin-top:8px">However, if you don't want to go through ads, you can buy our <a href="plans.html">VIP subscription</a>. VIP users can download mods instantly and get keys automatically.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-search="vip subscription plans pricing premium">
+                    <div class="faq-question">What are the VIP subscription plans? <span class="material-icons">expand_more</span></div>
+                    <div class="faq-answer"><p>You can see all our subscription plans by clicking <a href="plans.html">here</a>.</p></div>
+                </div>
+                <div class="faq-item" data-search="free key how to get activation key">
+                    <div class="faq-question">How can I get a free key? <span class="material-icons">expand_more</span></div>
+                    <div class="faq-answer"><p>You can get free keys from <a href="#">this page</a>.</p></div>
+                </div>
+                <div class="faq-item" data-search="vip key instant access subscription">
+                    <div class="faq-question">How do I get a VIP key? <span class="material-icons">expand_more</span></div>
+                    <div class="faq-answer"><p>If you have a VIP subscription, you can get your key instantly from <a href="#">this page</a>.</p></div>
+                </div>
+                <div class="faq-item" data-search="support contact help team reach">
+                    <div class="faq-question">How can I contact support? <span class="material-icons">expand_more</span></div>
+                    <div class="faq-answer"><p>You can reach our support team anytime through the <a href="contact.html">Contact page</a> on this website.</p></div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-icon" style="width:28px;height:28px;font-size:14px;"><span class="material-icons" style="font-size:16px">games</span></div>
+                    dream Mods
+                </div>
+                <ul class="footer-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="help.html">Help</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <p class="footer-copy">&copy; 2026 dream Mods. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
