@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Dream Mod Menu Keys</title>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #0064fa;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 640px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 26px;
+        color: #111;
+        margin-top: 10px;
+    }
+
+    .updated {
+        font-size: 16px;
+        color: #333;
+        margin: 8px 0 24px;
+    }
+
+    .card {
+        background: #afafc0;
+        border-radius: 12px;
+        padding: 24px 20px 28px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .card p {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .video-wrap {
+        max-width: 440px;
+        margin: 0 auto 20px;
+    }
+
+    .video-wrap iframe {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border: none;
+        border-radius: 10px;
+        display: block;
+    }
+
+    .get-keys-btn {
+        background: #1e90ff;
+        color: #fff;
+        font-size: 20px;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        padding: 14px 34px;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+        transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .get-keys-btn:hover {
+        background: #187bcd;
+    }
+
+    .get-keys-btn:active {
+        transform: scale(0.96);
+    }
+
+    @media (max-width: 480px) {
+        h1 { font-size: 20px; }
+        .get-keys-btn { font-size: 17px; padding: 12px 26px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Get Dream Mod Menu Keys</h1>
+    <div class="updated">(Last updated at <span id="lastUpdated"></span>)</div>
+
+    <div class="card">
+        <p>If you don't know how to get the keys, please watch the video below.</p>
+
+        <div class="video-wrap">
+            <!-- Replace VIDEO_ID with your YouTube video ID -->
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+        </div>
+
+        <p>Click the button below to go to the key retrieval site.</p>
+        <button class="get-keys-btn" onclick="getKeys()">Get Keys</button>
+    </div>
+</div>
+
+<script>
+    // Show current date & time as last updated
+    function updateTimestamp() {
+        const now = new Date();
+        const pad = n => String(n).padStart(2, '0');
+        const date = now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate());
+        let hours = now.getHours();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+        const time = pad(hours) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds()) + ' ' + ampm;
+        document.getElementById('lastUpdated').textContent = date + ' (' + time + ')';
+    }
+    updateTimestamp();
+
+    // Open key link when button is clicked
+    function getKeys() {
+        window.open('https://keys-mods.vercel.app/', '_blank');
+    }
+</script>
+
+</body>
+</html>

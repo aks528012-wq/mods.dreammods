@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP Plans - Aadil Mods</title>
+    <title>VIP Plans - Dream Mods</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -198,6 +198,23 @@
         }
         .btn-pay:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,0.4); }
         .btn-pay:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .order-details { display: none; }
+        .order-details.active { display: block; }
+        .order-success {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background-color: rgba(34,197,94,0.1);
+            border: 1px solid rgba(34,197,94,0.4);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .order-success .material-icons { color: #22c55e; font-size: 28px; }
+        .order-success strong { color: var(--text-primary); }
+        .order-success p { color: var(--text-secondary); font-size: 0.85rem; margin-top: 4px; }
+        .order-success code { background: var(--bg-hover); padding: 2px 8px; border-radius: 6px; font-weight: 700; color: var(--accent); }
+
     </style>
 </head>
 <body>
@@ -207,12 +224,13 @@
         <div class="sidebar-header">
             <a href="index.html" class="sidebar-brand">
                 <div class="logo-icon"><span class="material-icons">games</span></div>
-                dream Mods
+                Dream Mods
             </a>
         </div>
         <nav class="sidebar-nav">
             <ul>
                 <li><a href="index.html"><span class="material-icons">home</span> Home</a></li>
+                <li><a href="hillclimbracing.html"><span class="material-icons">sports_esports</span> Hill Climb Racing</a></li>
                 <li><a href="plans.html" class="active"><span class="material-icons">workspace_premium</span> VIP Plans</a></li>
                 <li><a href="help.html"><span class="material-icons">help_outline</span> Help</a></li>
                 <li><a href="about.html"><span class="material-icons">info</span> About</a></li>
@@ -362,41 +380,70 @@
 
                 <h3 style="font-size:1rem;font-weight:600;margin-bottom:16px;">Select Payment Method</h3>
                 <div class="payment-methods">
-                    <div class="payment-method" data-method="upi" onclick="selectPayment(this)">
-                        <span class="material-icons">qr_code</span>
-                        <h4>UPI Payment</h4>
-                        <p>Scan & Pay</p>
+                    <div class="payment-method selected" data-method="order" onclick="selectPayment(this)">
+                        <span class="material-icons">receipt_long</span>
+                        <h4>Order Form</h4>
+                        <p>Fill & submit</p>
                     </div>
                     <div class="payment-method" data-method="redeem" onclick="selectPayment(this)">
                         <span class="material-icons">redeem</span>
                         <h4>Redeem Code</h4>
                         <p>Enter code</p>
                     </div>
-                    <div class="payment-method" data-method="request" onclick="selectPayment(this)">
-                        <span class="material-icons">send</span>
-                        <h4>Send Request</h4>
-                        <p>Email / Telegram</p>
-                    </div>
                 </div>
 
-                <!-- UPI Details -->
-                <div class="upi-details" id="upiDetails">
-                    <h3 style="font-size:1rem;font-weight:600;margin-bottom:16px;">Pay via UPI</h3>
-                    <div class="upi-qr">
-                        <img src="https://dreamstore-mods.netlify.app/Qr-code.png://pay?pa=dreammods145@okaxis&pn=AadilMods&am=0" alt="UPI QR Code" id="upiQr">
-                        <p style="color:var(--text-muted);font-size:0.85rem;margin-top:12px;">Scan with any UPI app (GPay, PhonePe, Paytm)</p>
+                <!-- Order Form Details -->
+                <div class="order-details active" id="orderDetails">
+                    <h3 style="font-size:1rem;font-weight:600;margin-bottom:16px;">Fill Your Order Details</h3>
+                    <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:16px;">
+                        Pay first using your preferred method, then fill this form. Admin will verify your payment and activate your VIP.
+                    </p>
+
+                    <div class="contact-method">
+                        <span class="material-icons">account_balance</span>
+                        <div>
+                            <h4>Payment Details</h4>
+                            <p>UPI: <strong>dreammods145@okaxis</strong> &nbsp;|&nbsp; Email: <a href="mailto:dreammods145@gmail.com">dreammods145@gmail.com</a> &nbsp;|&nbsp; Telegram: <a href="https://t.me/Customplayer99" target="_blank">t.me/Customplayer99</a></p>
+                        </div>
                     </div>
-                    <div class="upi-id-box">
-                        <code id="upiId">dreammods145@okaxis</code>
-                        <button onclick="copyUpi()">Copy</button>
+
+                    <div class="form-group">
+                        <label>Your Name *</label>
+                        <input type="text" id="orderName" placeholder="Enter your name">
                     </div>
                     <div class="form-group">
-                        
-                        <label>Transaction ID / UTR (after payment)</label>
-                        <input type="text" id="upiTransactionId" placeholder="Enter your UPI transaction ID">
+                        <label>Your Email *</label>
+                        <input type="email" id="orderEmail" placeholder="Enter your email">
                     </div>
-                    <button class="btn-pay" onclick="submitUpiPayment()">
-                        <span class="material-icons">check_circle</span> I've Paid - Verify
+                    <div class="form-group">
+                        <label>Payment Method *</label>
+                        <select id="orderMethod" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius-xs);background-color:var(--bg-secondary);color:var(--text-primary);font-family:inherit;font-size:0.95rem;outline:none;">
+                            <option value="UPI">UPI</option>
+                            <option value="Gift Card">Gift Card</option>
+                            <option value="Crypto">Crypto</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Transaction ID / Reference (optional)</label>
+                        <input type="text" id="orderTxn" placeholder="Enter transaction ID or reference">
+                    </div>
+                    <div class="form-group">
+                        <label>Note (optional)</label>
+                        <input type="text" id="orderNote" placeholder="Any extra info for admin">
+                    </div>
+
+                    <div class="order-success" id="orderSuccess" style="display:none;">
+                        <span class="material-icons">check_circle</span>
+                        <div>
+                            <strong>Order submitted successfully!</strong>
+                            <p>Your Order ID: <code id="orderSuccessId"></code>. Admin will verify and activate your VIP within 1-2 hours.</p>
+                        </div>
+                    </div>
+
+                    <button class="btn-pay" id="orderSubmitBtn" onclick="submitOrder()">
+                        <span class="material-icons">send</span> Submit Order
                     </button>
                 </div>
 
@@ -411,40 +458,6 @@
                         <span class="material-icons">redeem</span> Redeem Code
                     </button>
                 </div>
-
-                <!-- Request Details -->
-                <div class="request-details" id="requestDetails">
-                    <h3 style="font-size:1rem;font-weight:600;margin-bottom:16px;">Send Purchase Request</h3>
-                    <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:16px;">Send us your request via one of the following methods. We'll activate your VIP after verification.</p>
-
-                    <div class="contact-method">
-                        <span class="material-icons">email</span>
-                        <div>
-                            <h4>Email</h4>
-                            <p><a href="mailto:dreammods145@gmail.com">dreammods145@gmail.com</a></p>
-                        </div>
-                    </div>
-
-                    <div class="contact-method">
-                        <span class="material-icons">send</span>
-                        <div>
-                            <h4>Telegram</h4>
-                            <p><a href="https://t.me/Customplayer99" target="_blank">t.me/Customplayer99</a></p>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Your Email / Telegram Username</label>
-                        <input type="text" id="requestContact" placeholder="Enter your contact info">
-                    </div>
-                    <div class="form-group">
-                        <label>Selected Plan</label>
-                        <input type="text" id="requestPlan" readonly style="background-color:var(--bg-hover);">
-                    </div>
-                    <button class="btn-pay" onclick="submitRequest()">
-                        <span class="material-icons">send</span> Send Request
-                    </button>
-                </div>
             </div>
         </main>
 
@@ -452,14 +465,14 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <div class="logo-icon" style="width:28px;height:28px;font-size:14px;"><span class="material-icons" style="font-size:16px">games</span></div>
-                    Aadil Mods
+                    Dream Mods
                 </div>
                 <ul class="footer-links">
                     <li><a href="about.html">About</a></li>
                     <li><a href="help.html">Help</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
-                <p class="footer-copy">&copy; 2026 dream Mods. All rights reserved.</p>
+                <p class="footer-copy">&copy; 2026 Dream Mods. All rights reserved.</p>
             </div>
         </footer>
     </div>
@@ -486,12 +499,7 @@
             document.getElementById('summaryPlan').textContent = selectedDuration;
             document.getElementById('summaryDuration').textContent = selectedDuration;
             document.getElementById('summaryTotal').textContent = '$' + selectedPrice;
-            document.getElementById('requestPlan').value = selectedDuration + ' - $' + selectedPrice;
 
-            // Update QR code with amount
-            document.getElementById('upiQr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=dreammods145@okaxis&pn=AadilMods&am=' + selectedPrice;
-
-            // Scroll to payment
             document.getElementById('paymentSection').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -499,36 +507,115 @@
             document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
             method.classList.add('selected');
             const methodType = method.dataset.method;
-
-            document.getElementById('upiDetails').classList.toggle('active', methodType === 'upi');
+            document.getElementById('orderDetails').classList.toggle('active', methodType === 'order');
             document.getElementById('redeemDetails').classList.toggle('active', methodType === 'redeem');
-            document.getElementById('requestDetails').classList.toggle('active', methodType === 'request');
         }
+    </script>
 
-        function copyUpi() {
-            const upiId = document.getElementById('upiId').textContent;
-            navigator.clipboard.writeText(upiId).then(() => {
-                alert('UPI ID copied: ' + upiId);
+    <!-- Firebase: Orders + Redeem Codes -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCqQoTs9zkFuHxQ9PCJyp5PzRlLe4Nf5Ks",
+            authDomain: "mods-store-dream.firebaseapp.com",
+            databaseURL: "https://mods-store-dream-default-rtdb.firebaseio.com",
+            projectId: "mods-store-dream",
+            storageBucket: "mods-store-dream.firebasestorage.app",
+            messagingSenderId: "112654567418",
+            appId: "1:112654567418:web:c59d08329945a608cb0643"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        let currentUser = null;
+        let currentUserData = {};
+
+        // Prefill name/email for logged-in users
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                try {
+                    const snap = await get(child(ref(db), 'users/' + user.uid));
+                    currentUserData = snap.val() || {};
+                } catch (e) { currentUserData = {}; }
+                const nameEl = document.getElementById('orderName');
+                const emailEl = document.getElementById('orderEmail');
+                if (nameEl && !nameEl.value) nameEl.value = currentUserData.name || user.displayName || '';
+                if (emailEl && !emailEl.value) emailEl.value = user.email || '';
+            }
+        });
+
+        async function saveOrder(data) {
+            const orderId = 'ORD' + Date.now();
+            await set(ref(db, 'orders/' + orderId), {
+                orderId,
+                userId: currentUser ? currentUser.uid : null,
+                userName: data.userName,
+                userEmail: data.userEmail,
+                plan: data.plan,
+                planKey: data.planKey,
+                amount: data.amount,
+                method: data.method,
+                txnId: data.txnId || '',
+                note: data.note || '',
+                status: 'pending',
+                timestamp: new Date().toISOString()
             });
+            return orderId;
         }
 
-        function submitUpiPayment() {
-            const txnId = document.getElementById('upiTransactionId').value.trim();
-            if (!txnId) { alert('Please enter your transaction ID'); return; }
-            alert('Payment verification request submitted! We will activate your VIP within 1-2 hours.\n\nTransaction ID: ' + txnId);
-        }
+        window.submitOrder = async function() {
+            const name = document.getElementById('orderName').value.trim();
+            const email = document.getElementById('orderEmail').value.trim();
+            const method = document.getElementById('orderMethod').value;
+            const txnId = document.getElementById('orderTxn').value.trim();
+            const note = document.getElementById('orderNote').value.trim();
 
-        function submitRedeemCode() {
-            const code = document.getElementById('redeemCode').value.trim();
+            if (!selectedPlan) { alert('Please select a plan first'); return; }
+            if (!name) { alert('Please enter your name'); return; }
+            if (!email || !email.includes('@')) { alert('Please enter a valid email'); return; }
+
+            const btn = document.getElementById('orderSubmitBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-icons">hourglass_top</span> Submitting...';
+            try {
+                const orderId = await saveOrder({
+                    userName: name, userEmail: email, method, txnId, note,
+                    plan: selectedDuration, planKey: selectedPlan, amount: selectedPrice
+                });
+                document.getElementById('orderSuccessId').textContent = orderId;
+                document.getElementById('orderSuccess').style.display = 'flex';
+                btn.style.display = 'none';
+                document.getElementById('orderSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } catch (err) {
+                alert('Failed to submit order: ' + err.message);
+                btn.disabled = false;
+                btn.innerHTML = '<span class="material-icons">send</span> Submit Order';
+            }
+        };
+
+        window.submitRedeemCode = async function() {
+            const code = document.getElementById('redeemCode').value.trim().toUpperCase();
             if (!code) { alert('Please enter a redeem code'); return; }
-            alert('Redeem code submitted: ' + code + '\nWe will verify and activate your VIP shortly.');
-        }
-
-        function submitRequest() {
-            const contact = document.getElementById('requestContact').value.trim();
-            if (!contact) { alert('Please enter your contact info'); return; }
-            alert('Purchase request sent!\n\nPlan: ' + selectedDuration + '\nContact: ' + contact + '\n\nWe will contact you shortly to complete the payment.');
-        }
+            try {
+                await saveOrder({
+                    userName: currentUserData.name || (currentUser ? currentUser.displayName : '') || 'Redeem User',
+                    userEmail: currentUser ? currentUser.email : '',
+                    method: 'Redeem Code', txnId: code, note: 'Code: ' + code,
+                    plan: selectedDuration || 'Redeem', planKey: selectedPlan || 'redeem',
+                    amount: selectedPrice || 0
+                });
+                alert('Redeem code submitted!\n\nCode: ' + code + '\nWe will verify and activate your VIP shortly.');
+                document.getElementById('redeemCode').value = '';
+            } catch (err) {
+                alert('Failed to submit code: ' + err.message);
+            }
+        };
     </script>
 </body>
 </html>
