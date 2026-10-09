@@ -1,132 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get Dream Mod Menu Keys</title>
-<style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background: #0064fa;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        padding: 20px;
-    }
-
-    .container {
-        width: 100%;
-        max-width: 640px;
-        text-align: center;
-    }
-
-    h1 {
-        font-size: 26px;
-        color: #111;
-        margin-top: 10px;
-    }
-
-    .updated {
-        font-size: 16px;
-        color: #333;
-        margin: 8px 0 24px;
-    }
-
-    .card {
-        background: #afafc0;
-        border-radius: 12px;
-        padding: 24px 20px 28px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-
-    .card p {
-        font-size: 16px;
-        color: #333;
-        margin-bottom: 20px;
-    }
-
-    .video-wrap {
-        max-width: 440px;
-        margin: 0 auto 20px;
-    }
-
-    .video-wrap iframe {
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        border: none;
-        border-radius: 10px;
-        display: block;
-    }
-
-    .get-keys-btn {
-        background: #1e90ff;
-        color: #fff;
-        font-size: 20px;
-        font-weight: bold;
-        border: none;
-        border-radius: 6px;
-        padding: 14px 34px;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-        transition: background 0.2s ease, transform 0.15s ease;
-    }
-
-    .get-keys-btn:hover {
-        background: #187bcd;
-    }
-
-    .get-keys-btn:active {
-        transform: scale(0.96);
-    }
-
-    @media (max-width: 480px) {
-        h1 { font-size: 20px; }
-        .get-keys-btn { font-size: 17px; padding: 12px 26px; }
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Free Key - Dream Mods</title>
+    <meta name="description" content="Get your free Dream Mod Menu key.">
+    <link rel="icon" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="chatbot.css">
 </head>
 <body>
-
-<div class="container">
-    <h1>Get Dream Mod Menu Keys</h1>
-    <div class="updated">(Last updated at <span id="lastUpdated"></span>)</div>
-
-    <div class="card">
-        <p>If you don't know how to get the keys, please watch the video below.</p>
-
-        <div class="video-wrap">
-            <!-- Replace VIDEO_ID with your YouTube video ID -->
-            <iframe src="https://www.youtube.com/embed/VIDEO_ID"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-        </div>
-
-        <p>Click the button below to go to the key retrieval site.</p>
-        <button class="get-keys-btn" onclick="getKeys()">Get Keys</button>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header"><a href="index.html" class="sidebar-brand"><img src="favicon.png" alt="Dream Mods logo" class="brand-logo">Dream Mods</a></div>
+        <nav class="sidebar-nav"><ul>
+            <li><a href="index.html"><span class="material-icons">home</span> Home</a></li>
+            <li><a href="allmods.html"><span class="material-icons">apps</span> All Mods</a></li>
+            <li><a href="plans.html"><span class="material-icons">workspace_premium</span> VIP Plans</a></li>
+            <li><a href="getkey.html"><span class="material-icons">vpn_key</span> Get a Key</a></li>
+            <li><a href="vipkey.html"><span class="material-icons">key</span> VIP Key</a></li>
+            <li><a href="help.html"><span class="material-icons">help_outline</span> Help</a></li>
+            <li><a href="about.html"><span class="material-icons">info</span> About</a></li>
+            <li><a href="contact.html"><span class="material-icons">mail</span> Contact</a></li>
+            <li><a href="sign.html"><span class="material-icons">person</span> Account</a></li>
+        </ul></nav>
+        <div class="sidebar-footer"><div class="theme-toggle" onclick="toggleTheme()"><div class="theme-toggle-label"><span class="material-icons" id="themeIcon">light_mode</span><span id="themeLabel">Light Mode</span></div><div class="toggle-switch"></div></div></div>
+    </aside>
+    <div class="main-content">
+        <header class="top-bar"><div class="top-bar-left"><button class="menu-btn" onclick="toggleSidebar()"><span class="material-icons">menu</span></button><h1 class="page-title">Get Free Key</h1></div></header>
+        <main class="page-content">
+            <section class="hero small"><span class="hero-badge"><span class="material-icons">vpn_key</span> Free key</span><h1>Get Your Free Key</h1>
+                <p>Watch the short guide if you're new, then open the key site.</p></section>
+            <div class="start-grid">
+                <div class="start-card"><div class="step-num">1</div><h3>Read the guide</h3><p>Follow the step-by-step key guide first.</p><a href="posts/loginkeys.html" class="btn-ghost">Open guide</a></div>
+                <div class="start-card"><div class="step-num">2</div><h3>Open the key site</h3><p>Watch a few ads and follow the timer steps.</p><a href="https://keys-modsdream.netlify.app/" target="_blank" rel="noopener" class="btn-cta">Get Free Key</a></div>
+                <div class="start-card"><div class="step-num">3</div><h3>Paste it in the mod</h3><p>Copy the key and enter it in the mod menu.</p></div>
+            </div>
+            <div class="info-card" style="margin-top:24px"><p>Want a key with no ads and no waiting? <a href="vipkey.html" data-vip-key>Create a VIP key</a> if you are a VIP member, or <a href="plans.html">see the plans</a>.</p></div>
+        </main>
+        <footer class="footer"><div class="footer-content">
+            <div class="footer-brand"><img src="favicon.png" alt="" class="brand-logo-sm"> Dream Mods</div>
+            <ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="help.html">Help</a></li><li><a href="contact.html">Contact</a></li></ul>
+            <p class="footer-copy">&copy; 2026 Dream Mods. All rights reserved.</p>
+        </div></footer>
     </div>
-</div>
-
-<script>
-    // Show current date & time as last updated
-    function updateTimestamp() {
-        const now = new Date();
-        const pad = n => String(n).padStart(2, '0');
-        const date = now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate());
-        let hours = now.getHours();
-        const ampm = hours >= 12 ? 'PM' : 'AM';
-        hours = hours % 12 || 12;
-        const time = pad(hours) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds()) + ' ' + ampm;
-        document.getElementById('lastUpdated').textContent = date + ' (' + time + ')';
-    }
-    updateTimestamp();
-
-    // Open key link when button is clicked
-    function getKeys() {
-        window.open('https://keys-mods.vercel.app/', '_blank');
-    }
-</script>
-
+    <script src="script.js"></script>
+    <script src="chatbot.js"></script>
+<script type="module" src="vip.js"></script>
 </body>
 </html>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dream Mods - Free Mods and Easy Guides</title>
-    <meta name="description" content="Virus-free modded Android games, easy step-by-step guides, and activation keys.">
+    <title>All Mods - Dream Mods</title>
+    <meta name="description" content="Every Dream Mods game mod in one place.">
     <link rel="icon" href="favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -29,21 +29,12 @@
         <div class="sidebar-footer"><div class="theme-toggle" onclick="toggleTheme()"><div class="theme-toggle-label"><span class="material-icons" id="themeIcon">light_mode</span><span id="themeLabel">Light Mode</span></div><div class="toggle-switch"></div></div></div>
     </aside>
     <div class="main-content">
-        <header class="top-bar"><div class="top-bar-left"><button class="menu-btn" onclick="toggleSidebar()"><span class="material-icons">menu</span></button><h1 class="page-title">Dream Mods</h1></div></header>
+        <header class="top-bar"><div class="top-bar-left"><button class="menu-btn" onclick="toggleSidebar()"><span class="material-icons">menu</span></button><h1 class="page-title">All Mods</h1></div></header>
         <main class="page-content">
-            <section class="hero"><span class="hero-badge"><span class="material-icons">verified</span> New here? You're in the right place</span>
-                <h1>Dream Mods</h1><p>Working game mods, activation keys, and easy step-by-step guides, all in one place. Pick a mod below to get started.</p>
-                <div class="hero-actions"><a href="#latest" class="btn-cta"><span class="material-icons">whatshot</span> Browse Mods</a><a href="getkey.html" class="btn-ghost"><span class="material-icons">vpn_key</span> How to get a key</a></div></section>
-            <section class="start-section"><h2 class="section-title"><span class="material-icons">rocket_launch</span> Start here in 3 steps</h2>
-                <div class="start-grid">
-                    <div class="start-card"><div class="step-num">1</div><h3>Pick a mod</h3><p>Choose a game from the list below. Each mod page explains what the mod does.</p></div>
-                    <div class="start-card"><div class="step-num">2</div><h3>Download the file</h3><p>Use the free button (with a few ads), or go VIP for an instant, ad-free download.</p></div>
-                    <div class="start-card"><div class="step-num">3</div><h3>Install and enter your key</h3><p>Follow the install guide on the page. Need a key? Get one from the Get Keys section.</p></div>
-                </div></section>
-            <div class="help-banner"><div class="help-left"><span class="material-icons big">smart_toy</span><div><h3>Stuck or have a question?</h3><p>Ask Dream Helper about plans, payments, downloads, keys, or installing.</p></div></div>
-                <button type="button" class="btn-cta" onclick="document.querySelector('.dmb-fab').click()"><span class="material-icons">chat</span> Ask Dream Helper</button></div>
-            <h2 class="section-title" id="latest"><span class="material-icons">whatshot</span> Latest Mods</h2>
-            <div class="app-cards-grid"><div class="app-card" data-cat="mods" data-search="subway surfers mod mod unlimited coins, gems, jetpack and god mode sybo games">
+            <section class="hero small"><h1>All Mods</h1><p>Every mod on Dream Mods. Use the buttons to filter, or search.</p></section>
+            <div class="toolbar"><div class="chips"><button class="cat-chip active" onclick="setCat(this,'all')">All</button><button class="cat-chip" onclick="setCat(this,'mods')">Mods</button></div>
+                <span class="count" id="countText"></span></div>
+            <div class="app-cards-grid" id="modsGrid"><div class="app-card" data-cat="mods" data-search="subway surfers mod mod unlimited coins, gems, jetpack and god mode sybo games">
                 <div class="app-card-header"><img src="subway-surfers-logo.webp" alt="Subway Surfers Mod" class="app-icon">
                     <div class="app-info"><h3>Subway Surfers Mod</h3><div class="app-meta"><span>v3.65.1</span><span>206.57 MB</span></div></div></div>
                 <div class="app-card-date"><span class="material-icons">schedule</span> Jun 27, 2026</div>
@@ -62,14 +53,18 @@
                 <p class="app-card-desc">Download the Stick War Legacy mod with free or VIP access. Follow the install guide on the page.</p>
                 <a href="posts/stickwar.html" class="btn-read-more">Read More <span class="material-icons">arrow_forward</span></a>
             </div></div>
-            <h2 class="keys-title" id="get-keys"><span class="material-icons">vpn_key</span> Get Keys</h2>
-            <div class="keys-grid">
-                <div class="key-guide-card"><h3>Step-by-Step Guide to Get Mod Menu Keys</h3><div class="app-card-date"><span class="material-icons">schedule</span> Nov 2, 2025</div>
-                    <p>Learn how to get a free or VIP activation key for Dream Mods.</p><a href="posts/loginkeys.html" class="btn-read-more">Read More <span class="material-icons">arrow_forward</span></a></div>
-                <div class="key-guide-card"><h3>Free Key</h3><p>Get your free mod menu key from our key site. Watch a few ads and follow the steps.</p><a href="https://keys-modsdream.netlify.app/" target="_blank" rel="noopener" class="btn-read-more">Get Free Key <span class="material-icons">arrow_forward</span></a></div>
-                <div class="key-guide-card"><h3>VIP Key Generator</h3><p>VIP members can create an instant key with no ads and no waiting.</p><a href="vipkey.html" data-vip-key class="btn-read-more">Create VIP Key <span class="material-icons">arrow_forward</span></a></div>
-            </div>
-            <div class="cta-section"><a href="plans.html" class="btn-cta"><span class="material-icons">workspace_premium</span> Get VIP Access</a><p>Instant downloads, no ads, and instant keys.</p></div>
+            <div class="empty-state" id="emptyState"><span class="material-icons">search_off</span><p>No mods match your search. Try a different word, or tap <b>All</b>.</p></div>
+            <h2 class="keys-title"><span class="material-icons">vpn_key</span> Get Keys</h2>
+            <div class="keys-grid"><div class="key-guide-card"><h3>Step-by-Step Guide to Get Mod Menu Keys</h3><div class="app-card-date"><span class="material-icons">schedule</span> Nov 2, 2025</div>
+                <p>Learn how to get a free or VIP activation key for Dream Mods.</p><a href="posts/loginkeys.html" class="btn-read-more">Read More <span class="material-icons">arrow_forward</span></a></div></div>
+            <script>
+            var activeCat='all';
+            function setCat(b,c){activeCat=c;document.querySelectorAll('.cat-chip').forEach(function(x){x.classList.remove('active')});b.classList.add('active');applyFilters();}
+            function applyFilters(){var q=(document.getElementById('allSearch')||{value:''}).value.toLowerCase().trim();var cards=document.querySelectorAll('#modsGrid .app-card');var n=0;
+              cards.forEach(function(c){var ok=(activeCat==='all'||c.dataset.cat===activeCat)&&(!q||c.dataset.search.indexOf(q)!==-1);c.style.display=ok?'':'none';if(ok)n++;});
+              document.getElementById('emptyState').classList.toggle('show',n===0);document.getElementById('countText').textContent=n+' of '+cards.length+' shown';}
+            document.addEventListener('DOMContentLoaded',applyFilters);
+            </script>
         </main>
         <footer class="footer"><div class="footer-content">
             <div class="footer-brand"><img src="favicon.png" alt="" class="brand-logo-sm"> Dream Mods</div>
@@ -79,6 +74,5 @@
     </div>
     <script src="script.js"></script>
     <script src="chatbot.js"></script>
-<script type="module" src="vip.js"></script>
 </body>
 </html>

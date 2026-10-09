@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VIP Key Generator - Dream Mods</title>
+<link rel="icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+body[data-vip-guard]:not(.vip-ok):not(.vip-error){visibility:hidden}
+body.vip-error{visibility:visible}
+.vip-error-box{margin:16px auto;max-width:560px;background:#fff0f0;border:1px solid #ffd1d1;color:#8a1f1f;padding:14px 16px;border-radius:14px;font:600 14px Inter,Arial,sans-serif}
+.vip-error-box p{font-weight:500;margin-top:4px}
+.vip-error-box a{color:#8a1f1f}
+body[data-vip-guard].vip-ok{visibility:visible}
+
+:root{--green:#159154;--green-dark:#0e6b3c;--green-light:#e8f7ef;--bg:#0b1411;--card:#ffffff;--text:#17251e;--muted:#6c7c73;--red:#d83838}
+*{box-sizing:border-box;margin:0}
+body{font-family:Inter,Arial,sans-serif;background:radial-gradient(1000px 500px at 85% -10%,#1f4a34 0%,var(--bg) 60%),var(--bg);color:var(--text);min-height:100vh}
+header{display:flex;align-items:center;gap:10px;padding:16px 22px;color:#fff;font-weight:800;font-size:18px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08)}
+header a{color:#cfe9da;text-decoration:none;margin-left:auto;font-size:14px;font-weight:700}
+.logo-dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+main{min-height:calc(100vh - 62px);display:grid;place-items:center;padding:28px 18px}
+.wrap{width:min(860px,100%);display:grid;grid-template-columns:1fr 1.1fr;gap:20px}
+@media(max-width:760px){.wrap{grid-template-columns:1fr}}
+.side{color:#e6f4ec;padding:8px 6px}
+.side h2{font-size:24px;font-weight:900;margin-bottom:10px}
+.side p{color:#b9d4c4;line-height:1.6;font-size:14.5px;margin-bottom:14px}
+.side li{color:#d7ebdf;font-size:14px;margin:8px 0 0 18px;line-height:1.5}
+.card{background:var(--card);border-radius:24px;padding:28px;box-shadow:0 24px 70px rgba(0,0,0,.45);animation:pop .45s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+h1{font-size:22px;font-weight:900;margin-bottom:4px}
+.sub{color:var(--muted);font-size:14px;line-height:1.55}
+.status{display:flex;align-items:center;gap:10px;margin:16px 0 4px;padding:12px 14px;border-radius:14px;font-weight:700;font-size:14px;background:var(--green-light);color:var(--green-dark);border:1px solid #cdeeda}
+label{display:block;font-weight:700;font-size:13px;margin:16px 0 7px;color:#2c3d34}
+input,select{width:100%;padding:13px 14px;border:1.5px solid #cbd9d0;border-radius:14px;font-size:16px;font-family:inherit;outline:none;background:#fbfdfc}
+input:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(21,145,84,.12);background:#fff}
+button.btn{width:100%;border:0;border-radius:14px;padding:15px;margin-top:18px;background:linear-gradient(135deg,var(--green),var(--green-dark));color:#fff;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 8px 22px rgba(21,145,84,.35)}
+button.btn:disabled{opacity:.6;cursor:not-allowed}
+.box{display:none;margin-top:16px;background:var(--green-light);border:1.5px solid #cdeeda;padding:16px;border-radius:16px}
+.box.error{background:#fff0f0;border-color:#ffd1d1;color:var(--red);font-weight:600}
+.key{font:800 17px ui-monospace,Consolas,monospace;background:#fff;padding:13px 14px;border:2px dashed var(--green);border-radius:12px;margin:11px 0;word-break:break-all;letter-spacing:1px;color:#0a3d24;text-align:center}
+.meta{font-size:13.5px;color:#3c5045;line-height:1.8}
+.copy-btn{width:100%;border:0;border-radius:12px;padding:13px;margin-top:12px;background:#0a3d24;color:#fff;font-size:15px;font-weight:800;cursor:pointer}
+.note{margin-top:14px;text-align:center;font-size:12px;color:#8a9a91}
+.note a{color:var(--green-dark);font-weight:700}
+</style>
+</head>
+<body data-vip-guard>
+<header><img src="favicon.png" alt="" style="width:30px;height:30px;border-radius:9px">Dream Mods &bull; VIP Key Generator <a href="index.html">&larr; Home</a></header>
+<main>
+<div class="wrap">
+  <section class="side">
+    <h2>Your VIP key in seconds</h2>
+    <p>VIP members create a key here. No ads, no waiting, and the key works right away.</p>
+    <ul>
+      <li>Type the game name you want to unlock.</li>
+      <li>Pick how many days the key should last.</li>
+      <li>Tap Create and copy the key.</li>
+    </ul>
+    <p style="margin-top:14px">Not a VIP member yet? <a href="plans.html" style="color:#9be3bb;font-weight:700">See the VIP plans</a>.</p>
+  </section>
+  <section class="card">
+    <h1>VIP Key Generator</h1>
+    <p class="sub">Generate your exclusive VIP access key for Dream Mods games.</p>
+    <div class="status"><span>&#10004;</span><span>Ready. Create your key below.</span></div>
+    <form id="genForm" onsubmit="return false">
+      <label for="game">Game Name</label>
+      <input id="game" placeholder="Enter game name">
+      <label for="days">Expiry Days</label>
+      <select id="days"><option value="3">3 Days</option><option value="7">7 Days</option><option value="15">15 Days</option></select>
+      <button class="btn" id="create">CREATE VIP KEY</button>
+    </form>
+    <div class="box" id="result"></div>
+    <p class="note">Keys expire automatically after the selected time.</p>
+  </section>
+</div>
+</main>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {getDatabase,ref,set} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+const keyConfig={apiKey:"AIzaSyCzLrk3M_2tKr5AlK9bf4PeZTJSEc8MdXs",authDomain:"dreammods99-cccab.firebaseapp.com",databaseURL:"https://dreammods99-cccab-default-rtdb.firebaseio.com",projectId:"dreammods99-cccab",storageBucket:"dreammods99-cccab.firebasestorage.app",messagingSenderId:"358075572490",appId:"1:358075572490:web:9026df8a077bb49ce6daf3"};
+const keyApp=initializeApp(keyConfig,"keygen");
+const keyDb=getDatabase(keyApp);
+const result=document.getElementById("result");
+const $=id=>document.getElementById(id);
+function rnd(n){const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789",a=new Uint32Array(n);crypto.getRandomValues(a);return Array.from(a,x=>chars[x%chars.length]).join("")}
+function fail(msg){result.style.display="block";result.className="box error";result.textContent=msg}
+$("create").onclick=async()=>{
+ const btn=$("create"); btn.disabled=true; btn.textContent="Creating...";
+ try{
+  const g=$("game").value.trim(),d=Number($("days").value);
+  if(!g){fail("Please enter the game name.");return}
+  const key="DREAM"+rnd(16),claim=rnd(10),now=Date.now(),expiresAt=now+d*86400000;
+  const payload={key,game:g,claim,createdAt:now,expiresAt,validDays:d,active:true};
+  await set(ref(keyDb,"keys/"+key),payload);
+  await set(ref(keyDb,"claims/"+claim),{keyId:key,game:g,expiresAt});
+  result.style.display="block";result.className="box";
+  result.innerHTML="<b>VIP KEY CREATED</b><div class='key'>"+key+"</div><div class='meta'>Game: <b>"+g+"</b><br>Valid: <b>"+d+" Days</b><br>Expires: <b>"+new Date(expiresAt).toLocaleString()+"</b></div><button class='copy-btn' id='copy'>COPY KEY</button>";
+  $("copy").onclick=async()=>{try{await navigator.clipboard.writeText(key);$("copy").textContent="COPIED"}catch(e){const t=document.createElement("textarea");t.value=key;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove();$("copy").textContent="COPIED"}};
+ }catch(e){fail("Key creation failed: "+e.message)}
+ finally{btn.disabled=false;btn.textContent="CREATE VIP KEY"}
+};
+</script>
+<script type="module" src="vip.js"></script>
+</body>
+</html>
